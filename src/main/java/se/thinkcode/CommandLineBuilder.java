@@ -12,6 +12,7 @@ class CommandLineBuilder {
         List<String> command = new ArrayList<>();
         command.add("java");
         addSystemProperties(command);
+        addVmoptions(command, extension, commandLineOption);
         command.add("-cp");
         command.add(classpath);
         command.add(main);
@@ -35,6 +36,12 @@ class CommandLineBuilder {
         addFeaturePath(command, extension, commandLineOption);
 
         return command.toArray(new String[0]);
+    }
+
+    private void addVmoptions(List<String> command, CucumberExtension extension, CucumberTask commandLineOption) {
+        if (!extension.vmoptions.isEmpty()) {
+            command.add(extension.vmoptions);
+        }
     }
 
     private void addSystemProperties(List<String> command) {
